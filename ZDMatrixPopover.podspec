@@ -27,9 +27,9 @@ Pod::Spec.new do |s|
   DESC
 
   s.homepage     = "https://github.com/zdima/ZDMatrixPopover"
-  s.screenshots  = "https://github.com/zdima/ZDMatrixPopover/ScreenShot.png"
+  s.screenshots  = "https://github.com/zdima/ZDMatrixPopover/raw/master/ScreenShot.png"
   s.license      = { :type => "MIT", :file => "LICENSE" }
-  s.author             = { "Dmitriy Zakharkin" => "mail@zdima.net" }
+  s.author       = { "Dmitriy Zakharkin" => "mail@zdima.net" }
   s.platform     = :osx, "10.11"
   s.source       = { :git => "https://github.com/zdima/ZDMatrixPopover.git", :tag => "#{s.version}" }
 
