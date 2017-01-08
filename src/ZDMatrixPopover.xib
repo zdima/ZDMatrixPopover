@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ZDMatrixPopoverController" customModule="ZDMatrixPopover" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionBackgroundView" destination="Qyh-5e-2Aw" id="dBW-5o-OlR"/>
+                <outlet property="collectionHeightConstraint" destination="3Mf-UC-pyF" id="ISY-Kz-e3Y"/>
+                <outlet property="collectionWidthConstraint" destination="8ya-LB-jd2" id="KVe-co-wmO"/>
+                <outlet property="m_collectionView" destination="1YI-fj-9pt" id="Nou-1C-IyN"/>
+                <outlet property="m_popover" destination="5NA-N4-1DB" id="YCr-yK-IJr"/>
+                <outlet property="m_popoverView" destination="Ozz-v3-P5g" id="LDn-rv-rU9"/>
+                <outlet property="m_titleLabel" destination="T3w-Us-jRE" id="r7X-9b-cbk"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <collectionViewItem id="uOF-zJ-kuJ"/>
+        <viewController id="uQV-Lp-Gdd" userLabel="Popover View Controller">
+            <connections>
+                <outlet property="view" destination="Ozz-v3-P5g" id="lH0-NP-qfe"/>
+            </connections>
+        </viewController>
+        <popover animates="NO" id="5NA-N4-1DB">
+            <connections>
+                <outlet property="contentViewController" destination="uQV-Lp-Gdd" id="gf3-B2-VmK"/>
+            </connections>
+        </popover>
+        <customView id="Ozz-v3-P5g">
+            <rect key="frame" x="0.0" y="0.0" width="294" height="204"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T3w-Us-jRE">
+                    <rect key="frame" x="2" y="184" width="290" height="16"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="Label" usesSingleLineMode="YES" id="BPO-oS-eGz">
+                        <font key="font" metaFont="cellTitle"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <collectionView translatesAutoresizingMaskIntoConstraints="NO" id="1YI-fj-9pt">
+                    <rect key="frame" x="4" y="4" width="286" height="178"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="178" id="3Mf-UC-pyF"/>
+                        <constraint firstAttribute="width" constant="286" id="8ya-LB-jd2"/>
+                    </constraints>
+                    <collectionViewLayout key="collectionViewLayout" id="hjs-e7-yNE" customClass="ZDMatrixPopoverLayout"/>
+                    <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-2" id="f1v-dd-Lyz"/>
+                        <outlet property="delegate" destination="-2" id="YFV-73-JeN"/>
+                    </connections>
+                </collectionView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="1YI-fj-9pt" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ozz-v3-P5g" secondAttribute="leading" constant="4" id="2pf-Az-FQg"/>
+                <constraint firstItem="T3w-Us-jRE" firstAttribute="centerX" secondItem="Ozz-v3-P5g" secondAttribute="centerX" id="F8o-Lz-Spr"/>
+                <constraint firstItem="T3w-Us-jRE" firstAttribute="leading" secondItem="Ozz-v3-P5g" secondAttribute="leading" priority="750" constant="4" id="Pav-5F-OIc"/>
+                <constraint firstItem="1YI-fj-9pt" firstAttribute="centerX" secondItem="Ozz-v3-P5g" secondAttribute="centerX" id="R3E-VN-sbr"/>
+                <constraint firstAttribute="bottom" secondItem="1YI-fj-9pt" secondAttribute="bottom" constant="4" id="UWW-lV-FFR"/>
+                <constraint firstAttribute="trailing" secondItem="T3w-Us-jRE" secondAttribute="trailing" priority="750" constant="4" id="WMW-Uc-Xfx"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1YI-fj-9pt" secondAttribute="trailing" constant="4" id="cAx-9x-org"/>
+                <constraint firstItem="1YI-fj-9pt" firstAttribute="top" secondItem="T3w-Us-jRE" secondAttribute="bottom" constant="2" id="ok7-KD-1IF"/>
+                <constraint firstItem="T3w-Us-jRE" firstAttribute="top" secondItem="Ozz-v3-P5g" secondAttribute="top" constant="4" id="zQg-gg-hyK"/>
+            </constraints>
+            <point key="canvasLocation" x="-28.5" y="92.5"/>
+        </customView>
+        <customView id="Qyh-5e-2Aw">
+            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+        </customView>
+    </objects>
+</document>

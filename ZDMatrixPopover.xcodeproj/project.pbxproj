@@ -11,6 +11,12 @@
 		2C040B911E2178A200B7B2C7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C040B901E2178A200B7B2C7 /* ViewController.swift */; };
 		2C040B931E2178A200B7B2C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C040B921E2178A200B7B2C7 /* Assets.xcassets */; };
 		2C040B961E2178A200B7B2C7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C040B941E2178A200B7B2C7 /* Main.storyboard */; };
+		2C040B9F1E21790600B7B2C7 /* ZDMatrixPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C040B9E1E21790600B7B2C7 /* ZDMatrixPopover.swift */; };
+		2C040BA11E2179FB00B7B2C7 /* ZDMatrixPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C040BA01E2179FB00B7B2C7 /* ZDMatrixPopover.xib */; };
+		2C040BA31E21928C00B7B2C7 /* NSCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C040BA21E21928C00B7B2C7 /* NSCollectionViewItem.xib */; };
+		2C040BA51E21E22A00B7B2C7 /* ZDMatrixPopoverLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C040BA41E21E22A00B7B2C7 /* ZDMatrixPopoverLayout.swift */; };
+		2C040BA71E21E25500B7B2C7 /* ZDMatrixPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C040BA61E21E25500B7B2C7 /* ZDMatrixPopoverController.swift */; };
+		B7CE3C0D359FC567D61D0119 /* Pods_ZDMatrixPopover.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B82699F53B43ED2566024E63 /* Pods_ZDMatrixPopover.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +26,14 @@
 		2C040B921E2178A200B7B2C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C040B951E2178A200B7B2C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2C040B971E2178A200B7B2C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C040B9E1E21790600B7B2C7 /* ZDMatrixPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ZDMatrixPopover.swift; path = src/ZDMatrixPopover.swift; sourceTree = "<group>"; };
+		2C040BA01E2179FB00B7B2C7 /* ZDMatrixPopover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ZDMatrixPopover.xib; path = src/ZDMatrixPopover.xib; sourceTree = "<group>"; };
+		2C040BA21E21928C00B7B2C7 /* NSCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NSCollectionViewItem.xib; path = src/NSCollectionViewItem.xib; sourceTree = "<group>"; };
+		2C040BA41E21E22A00B7B2C7 /* ZDMatrixPopoverLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ZDMatrixPopoverLayout.swift; path = src/ZDMatrixPopoverLayout.swift; sourceTree = "<group>"; };
+		2C040BA61E21E25500B7B2C7 /* ZDMatrixPopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ZDMatrixPopoverController.swift; path = src/ZDMatrixPopoverController.swift; sourceTree = "<group>"; };
+		3A6EEB6AA4A5CE19BD06D7DE /* Pods-ZDMatrixPopover.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZDMatrixPopover.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZDMatrixPopover/Pods-ZDMatrixPopover.debug.xcconfig"; sourceTree = "<group>"; };
+		B82699F53B43ED2566024E63 /* Pods_ZDMatrixPopover.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZDMatrixPopover.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF86C1B165CE504B0D32CA72 /* Pods-ZDMatrixPopover.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZDMatrixPopover.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZDMatrixPopover/Pods-ZDMatrixPopover.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7CE3C0D359FC567D61D0119 /* Pods_ZDMatrixPopover.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -36,8 +51,11 @@
 		2C040B821E2178A200B7B2C7 = {
 			isa = PBXGroup;
 			children = (
-				2C040B8D1E2178A200B7B2C7 /* ZDMatrixPopover */,
+				2C040B9D1E2178B300B7B2C7 /* ZDMatrixPopover */,
+				2C040B8D1E2178A200B7B2C7 /* ZDMatrixPopoverApp */,
 				2C040B8C1E2178A200B7B2C7 /* Products */,
+				DDB7523E2EE398DEC3D8367E /* Pods */,
+				D5D2589FABC0A8E7396EC0DD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -49,7 +67,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2C040B8D1E2178A200B7B2C7 /* ZDMatrixPopover */ = {
+		2C040B8D1E2178A200B7B2C7 /* ZDMatrixPopoverApp */ = {
 			isa = PBXGroup;
 			children = (
 				2C040B8E1E2178A200B7B2C7 /* AppDelegate.swift */,
@@ -58,7 +76,37 @@
 				2C040B941E2178A200B7B2C7 /* Main.storyboard */,
 				2C040B971E2178A200B7B2C7 /* Info.plist */,
 			);
+			name = ZDMatrixPopoverApp;
 			path = ZDMatrixPopover;
+			sourceTree = "<group>";
+		};
+		2C040B9D1E2178B300B7B2C7 /* ZDMatrixPopover */ = {
+			isa = PBXGroup;
+			children = (
+				2C040B9E1E21790600B7B2C7 /* ZDMatrixPopover.swift */,
+				2C040BA01E2179FB00B7B2C7 /* ZDMatrixPopover.xib */,
+				2C040BA21E21928C00B7B2C7 /* NSCollectionViewItem.xib */,
+				2C040BA41E21E22A00B7B2C7 /* ZDMatrixPopoverLayout.swift */,
+				2C040BA61E21E25500B7B2C7 /* ZDMatrixPopoverController.swift */,
+			);
+			name = ZDMatrixPopover;
+			sourceTree = "<group>";
+		};
+		D5D2589FABC0A8E7396EC0DD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B82699F53B43ED2566024E63 /* Pods_ZDMatrixPopover.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DDB7523E2EE398DEC3D8367E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3A6EEB6AA4A5CE19BD06D7DE /* Pods-ZDMatrixPopover.debug.xcconfig */,
+				EF86C1B165CE504B0D32CA72 /* Pods-ZDMatrixPopover.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -68,9 +116,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2C040B9A1E2178A200B7B2C7 /* Build configuration list for PBXNativeTarget "ZDMatrixPopover" */;
 			buildPhases = (
+				20F164F3E238F9AB78850AB6 /* [CP] Check Pods Manifest.lock */,
 				2C040B871E2178A200B7B2C7 /* Sources */,
 				2C040B881E2178A200B7B2C7 /* Frameworks */,
 				2C040B891E2178A200B7B2C7 /* Resources */,
+				E885FCC03C5BD5BC5E8B6A5C /* [CP] Embed Pods Frameworks */,
+				49182BA0362E9A50A21DC363 /* [CP] Copy Pods Resources */,
+				2C6A591E1E21F9AE001148E9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -121,18 +173,84 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C040B931E2178A200B7B2C7 /* Assets.xcassets in Resources */,
+				2C040BA31E21928C00B7B2C7 /* NSCollectionViewItem.xib in Resources */,
 				2C040B961E2178A200B7B2C7 /* Main.storyboard in Resources */,
+				2C040BA11E2179FB00B7B2C7 /* ZDMatrixPopover.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20F164F3E238F9AB78850AB6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		2C6A591E1E21F9AE001148E9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint";
+		};
+		49182BA0362E9A50A21DC363 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZDMatrixPopover/Pods-ZDMatrixPopover-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E885FCC03C5BD5BC5E8B6A5C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZDMatrixPopover/Pods-ZDMatrixPopover-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2C040B871E2178A200B7B2C7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C040B9F1E21790600B7B2C7 /* ZDMatrixPopover.swift in Sources */,
 				2C040B911E2178A200B7B2C7 /* ViewController.swift in Sources */,
+				2C040BA51E21E22A00B7B2C7 /* ZDMatrixPopoverLayout.swift in Sources */,
+				2C040BA71E21E25500B7B2C7 /* ZDMatrixPopoverController.swift in Sources */,
 				2C040B8F1E2178A200B7B2C7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,11 +361,13 @@
 		};
 		2C040B9B1E2178A200B7B2C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A6EEB6AA4A5CE19BD06D7DE /* Pods-ZDMatrixPopover.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = ZDMatrixPopover/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = net.zdima.ZDMatrixPopover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -256,11 +376,13 @@
 		};
 		2C040B9C1E2178A200B7B2C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF86C1B165CE504B0D32CA72 /* Pods-ZDMatrixPopover.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = ZDMatrixPopover/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = net.zdima.ZDMatrixPopover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -286,6 +408,7 @@
 				2C040B9C1E2178A200B7B2C7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
