@@ -206,6 +206,15 @@ class ZDMatrixPopoverController: NSObject,
                 "column": NSNumber(value: col),
                 "row": NSNumber(value: row),
                 "alignment": textField.alignment])
+            if attributedString != nil && m_delegate != nil {
+                let alignment = m_delegate!.getColumnAlignment(column: col)
+                if let mutableString = attributedString!.mutableCopy() as? NSMutableAttributedString {
+                    let paragraph = NSMutableParagraphStyle()
+                    paragraph.alignment = alignment
+                    mutableString.addAttribute( NSParagraphStyleAttributeName, value: paragraph, range: NSMakeRange(0, mutableString.length))
+                    attributedString = mutableString
+                }
+            }
             string = formatter.string(for: data)
         } else if let attributedStringData = data as? NSAttributedString {
             attributedString = attributedStringData
