@@ -20,13 +20,19 @@ class ZDMatrixPopoverController: NSObject,
         NSCollectionViewDataSource,
         NSCollectionViewDelegateFlowLayout {
 
-    var owner: ZDMatrixPopover!
+    private var owner: ZDMatrixPopover!
+    private var bundle: Bundle!
+    private var nib: NSNib!
+    private var lastTimer: Timer?
 
     public required init(owner myOwner: ZDMatrixPopover! ) {
         owner = myOwner
         super.init()
-        Bundle.main.loadNibNamed("ZDMatrixPopover", owner: self, topLevelObjects: &objects)
-        m_collectionView.register(NSCollectionViewItem.self, forItemWithIdentifier: "dataSourceItem")
+        bundle = Bundle(for: ZDMatrixPopover.self)
+        bundle.loadNibNamed("ZDMatrixPopover", owner: self, topLevelObjects: &objects)
+        nib = NSNib(nibNamed: "NSCollectionViewItem", bundle: bundle)
+
+        m_collectionView.register( nib, forItemWithIdentifier: "dataSourceItem")
         m_collectionView.backgroundColors = [ NSColor.clear, NSColor.clear]
         m_titleLabel.font = NSFont.titleBarFont(ofSize: owner.titleFontSize)
     }
@@ -46,38 +52,78 @@ class ZDMatrixPopoverController: NSObject,
             m_delegate = delegate as? ZDMatrixPopoverDelegate
         }
     }
-
     public func show(
         data: [[Any]],
         title: String,
         relativeTo rect: NSRect,
         of view: NSView,
-        preferredEdge: NSRectEdge) throws {
-        if m_popover == nil {
-            // swiftlint:disable force_cast
-            throw NSException(name: NSExceptionName.nibLoadingException,
-                              reason: "Failed to load 'ZDMatrixPopover'", userInfo: nil) as! Error
-            // swiftlint:enable force_cast
+        preferredEdge: NSRectEdge) {
+
+        assert( m_popover != nil, "Failed to load 'ZDMatrixPopover'")
+
+        if m_popover.isShown {
+            if lastTimer != nil {
+                lastTimer!.invalidate()
+            }
+            lastTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: Selector("timerShow:"), userInfo: [ "data": data, "title": title, "rect": rect, "view": view, "preferredEdge": preferredEdge], repeats: false)
+            return
         }
-        m_data = data
+
         m_titleLabel.stringValue = title
+        m_data = data
+
+        if !m_popover.contentViewController!.isViewLoaded {
+            m_popover.contentViewController!.loadView()
+        }
 
         m_collectionView.collectionViewLayout!.prepare()
+        m_collectionView.reloadData()
+
         let collectionSize = m_collectionView.collectionViewLayout!.collectionViewContentSize
         collectionWidthConstraint.constant = collectionSize.width
         collectionHeightConstraint.constant = collectionSize.height
+        m_collectionView.needsLayout = true
+        m_collectionView.superview?.layoutSubtreeIfNeeded()
+
+        m_collectionView.reloadData()
+
         m_popover.contentViewController!.view.setFrameSize(m_popover.contentViewController!.view.fittingSize)
+
+
         m_popover.contentSize = m_popover.contentViewController!.view.bounds.size
+        let mustSize = m_popover.contentSize
+
         m_popover.show(relativeTo:rect, of: view, preferredEdge: preferredEdge)
     }
 
-    public func close() throws {
-        if m_popover == nil {
-            // swiftlint:disable force_cast
-            throw NSException(name: NSExceptionName.nibLoadingException,
-                              reason: "Failed to load 'ZDMatrixPopover'", userInfo: nil) as! Error
-            // swiftlint:enable force_cast
+    func timerShow(_ arg: Any?) {
+
+        guard let timer = arg as? Timer else { return }
+        guard let userInfoMap = timer.userInfo as? [String: Any?] else { return }
+
+        DispatchQueue.main.async() {
+
+            self.m_titleLabel.stringValue = userInfoMap["title"] as! String
+            self.m_data = userInfoMap["data"] as! [[Any]]
+
+            // make sure layout manager has been updated
+            self.m_collectionView.collectionViewLayout!.prepare()
+            self.m_collectionView.reloadData()
+
+            let collectionSize = self.m_collectionView.collectionViewLayout!.collectionViewContentSize
+            self.collectionWidthConstraint.constant = collectionSize.width
+            self.collectionHeightConstraint.constant = collectionSize.height
+
+            self.m_popover.positioningRect = userInfoMap["rect"] as! NSRect
+            self.m_popover.contentViewController!.view.layoutSubtreeIfNeeded()
+            self.m_popover.contentSize = self.m_popover.contentViewController!.view.bounds.size
+
+            self.m_collectionView.reloadData()
         }
+    }
+
+    public func close() {
+        assert( m_popover != nil, "Failed to load 'ZDMatrixPopover'")
         m_popover.close()
     }
 
@@ -102,12 +148,18 @@ class ZDMatrixPopoverController: NSObject,
             let colCount = m_data.reduce(0) { (r, a) in return max(r, a.count)}
             let rowCount = m_data.count
 
-            if lastColumnCount != colCount || lastRowCount != rowCount {
-                setupCollectionView(columnCount: colCount, rowCount: rowCount)
+            lastColumnCount = colCount
+            lastRowCount = rowCount
+
+            m_formatter = [Formatter?].init(repeating: nil, count: colCount)
+            if m_delegate != nil {
+                for col in 0..<colCount {
+                    if let formatter = m_delegate!.getColumnFormatter(column: col) {
+                        m_formatter[col] = formatter
+                    }
+                }
             }
             m_collectionView.reloadData()
-            m_collectionView.collectionViewLayout!.invalidateLayout()
-            m_collectionView.needsDisplay = true
         }
     }
 
@@ -127,9 +179,6 @@ class ZDMatrixPopoverController: NSObject,
         lastColumnCount = columnCount
         lastRowCount = rowCount
 
-        m_collectionView.maxNumberOfColumns = columnCount
-        m_collectionView.collectionViewLayout!.invalidateLayout()
-
         m_formatter = [Formatter?].init(repeating: nil, count: columnCount)
         if m_delegate != nil {
             for col in 0..<columnCount {
@@ -143,7 +192,10 @@ class ZDMatrixPopoverController: NSObject,
     internal func initCellValue( textField: NSTextField, row: Int, col: Int) {
         textField.font = NSFont.labelFont(ofSize: owner.dataFontSize)
         // Configure the item with an image from the app's data structures
-        let data = m_data[row][col]
+        if m_data.count <= row { return }
+        let rowData = m_data[row]
+        if rowData.count <= col { return }
+        let data = rowData[col]
         var attributedString: NSAttributedString?
         var string: String?
         if m_delegate != nil {
@@ -174,18 +226,27 @@ class ZDMatrixPopoverController: NSObject,
                                itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
 
         // Recycle or create an item.
-        let item = m_collectionView.makeItem(withIdentifier: "dataSourceItem", for: indexPath)
+        guard let item = NSCollectionViewItem(nibName: "NSCollectionViewItem", bundle: bundle) else { return NSCollectionViewItem() }
+        item.loadView()
 
-        let row = Int( indexPath.item / m_collectionView.maxNumberOfColumns )
-        let col = Int( indexPath.item % m_collectionView.maxNumberOfColumns )
+        let row = Int( indexPath.item / lastColumnCount )
+        let col = Int( indexPath.item % lastColumnCount )
 
         initCellValue(textField: item.textField!, row: row, col: col)
+
+        if let matrix = collectionView.collectionViewLayout as? ZDMatrixPopoverLayout,
+            let attr = matrix.layoutAttributesForItem(at: indexPath ) {
+            item.view.frame = attr.frame
+        }
 
         return item
     }
 
     public func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return lastColumnCount * lastRowCount
+        if m_data.count == 0 {
+            return 0
+        }
+        return m_data.count * m_data[0].count
     }
 
     public func numberOfSections(in collectionView: NSCollectionView) -> Int {

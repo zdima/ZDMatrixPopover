@@ -9,15 +9,20 @@
 import Cocoa
 
 @objc(ZDMatrixPopoverLayout)
-class ZDMatrixPopoverLayout: NSCollectionViewGridLayout {
+class ZDMatrixPopoverLayout: NSCollectionViewLayout {
 
-    internal var rowHeight: Int = 0
-    internal var colWidth: [Int] = []
-    internal var contentSize = NSSize.zero
+    private var contentSize = NSSize.zero
+    private var itemCount: Int = 0
+    private var layoutAttributes: [IndexPath: NSCollectionViewLayoutAttributes] = [:]
 
     override func prepare() {
+        super.prepare()
+
         guard let collection = collectionView else {return}
         guard let delegate = collection.dataSource as? ZDMatrixPopoverController else {return}
+
+        var rowHeight: Int = 0
+        var colWidth: [Int] = []
 
         let textField: NSTextField!
         if #available(OSX 10.12, *) {
@@ -54,12 +59,30 @@ class ZDMatrixPopoverLayout: NSCollectionViewGridLayout {
             }
         }
 
+        var y: Int = 2
+        layoutAttributes = [:]
+        for row in 0..<delegate.lastRowCount {
+            var x: Int = 2
+            for col in 0..<delegate.lastColumnCount {
+                let cellRect = NSRect(x: x, y: y, width: colWidth[col], height: rowHeight)
+                let attr = NSCollectionViewLayoutAttributes(forItemWith:
+                    IndexPath(item: row*delegate.lastColumnCount + col, section: 0))
+                attr.frame = cellRect
+                attr.size = cellRect.size
+                layoutAttributes[IndexPath(item: row*delegate.lastColumnCount + col, section: 0)] = attr
+                x += colWidth[col] + 2
+            }
+            y += rowHeight + 2
+        }
+
         var width = colWidth.reduce(0, +)
         width += (colWidth.count + 1) * 2
         var height = rowHeight * delegate.lastRowCount
         height += (delegate.lastRowCount + 1) * 2
 
         contentSize = NSSize(width: width, height: height)
+
+        itemCount = delegate.lastRowCount * delegate.lastColumnCount
     }
 
     override var collectionViewContentSize: NSSize {
@@ -68,26 +91,23 @@ class ZDMatrixPopoverLayout: NSCollectionViewGridLayout {
         }
         set {}
     }
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> NSCollectionViewLayoutAttributes? {
+        if indexPath.item >= itemCount {
+            print("index \(indexPath.item) out of range \(itemCount)")
+            return nil
+        }
+        return layoutAttributes[indexPath]
+    }
 
     override func layoutAttributesForElements(in rect: NSRect) -> [NSCollectionViewLayoutAttributes] {
-        guard let collection = collectionView else {return []}
-        guard let delegate = collection.dataSource as? ZDMatrixPopoverController else {return []}
-        var attrs: [NSCollectionViewLayoutAttributes] = []
-        var y: Int = 2
-        for row in 0..<delegate.lastRowCount {
-            var x: Int = 2
-            for col in 0..<delegate.lastColumnCount {
-                let cellRect = NSRect(x: x, y: y, width: colWidth[col], height: rowHeight)
-                if rect.contains(cellRect) {
-                    let attr = NSCollectionViewLayoutAttributes(forItemWith:
-                        IndexPath(item: row*delegate.lastColumnCount + col, section: 0))
-                    attr.frame = cellRect
-                    attrs.append(attr)
-                }
-                x += colWidth[col] + 2
-            }
-            y += rowHeight + 2
-        }
-        return attrs
+        return Array(layoutAttributes.values.filter { $0.frame.intersects(rect) })
+    }
+
+    override func shouldInvalidateLayout(forPreferredLayoutAttributes preferredAttributes: NSCollectionViewLayoutAttributes, withOriginalAttributes originalAttributes: NSCollectionViewLayoutAttributes) -> Bool {
+        return true
+    }
+
+    override func shouldInvalidateLayout(forBoundsChange newBounds: NSRect) -> Bool {
+        return true
     }
 }

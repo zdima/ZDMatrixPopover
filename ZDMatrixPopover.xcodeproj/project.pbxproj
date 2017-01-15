@@ -117,12 +117,12 @@
 			buildConfigurationList = 2C040B9A1E2178A200B7B2C7 /* Build configuration list for PBXNativeTarget "ZDMatrixPopover" */;
 			buildPhases = (
 				20F164F3E238F9AB78850AB6 /* [CP] Check Pods Manifest.lock */,
+				2C6A591E1E21F9AE001148E9 /* Run Lint */,
 				2C040B871E2178A200B7B2C7 /* Sources */,
 				2C040B881E2178A200B7B2C7 /* Frameworks */,
 				2C040B891E2178A200B7B2C7 /* Resources */,
 				E885FCC03C5BD5BC5E8B6A5C /* [CP] Embed Pods Frameworks */,
 				49182BA0362E9A50A21DC363 /* [CP] Copy Pods Resources */,
-				2C6A591E1E21F9AE001148E9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -197,13 +197,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		2C6A591E1E21F9AE001148E9 /* ShellScript */ = {
+		2C6A591E1E21F9AE001148E9 /* Run Lint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Lint";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,7 +310,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -352,7 +353,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
